@@ -1,0 +1,4 @@
+objectrest>=0.1.2
+pydantic>=1.8.1
+requests-oauthlib>=1.3.0
+requests>=2.25.1

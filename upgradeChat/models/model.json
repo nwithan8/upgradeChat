@@ -1,0 +1,186 @@
+{
+  "title": "WebhookEvents",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "An array of webhook event records",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "webhook_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "order.created",
+              "order.updated",
+              "order.deleted"
+            ]
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string"
+              },
+              "purchased_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "payment_processor": {
+                "type": "string",
+                "enum": [
+                  "PAYPAL",
+                  "STRIPE"
+                ]
+              },
+              "payment_processor_record_id": {
+                "type": "string"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "discord_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                }
+              },
+              "subtotal": {
+                "type": "number",
+                "format": "double"
+              },
+              "discount": {
+                "type": "number",
+                "format": "double"
+              },
+              "total": {
+                "type": "number",
+                "format": "double"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "UPGRADE",
+                  "SHOP"
+                ]
+              },
+              "is_subscription": {
+                "type": "boolean"
+              },
+              "cancelled_at": {
+                "type": "string",
+                "format": "date",
+                "description": "The date when the subscription was cancelled"
+              },
+              "deleted": {
+                "type": "string",
+                "format": "date",
+                "description": "The date when the subscription expired"
+              },
+              "order_items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "price": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "interval": {
+                      "type": "string",
+                      "enum": [
+                        "day",
+                        "week",
+                        "month",
+                        "year"
+                      ]
+                    },
+                    "interval_count": {
+                      "type": "number"
+                    },
+                    "free_trial_length": {
+                      "type": "number"
+                    },
+                    "is_time_limited": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "UPGRADE",
+                        "SHOP"
+                      ]
+                    },
+                    "discord_roles": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "discord_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "product_types": {
+                      "description": "The types of the product. A product purchased through the shop will be a shop product. All other types are upgrades.",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "DISCORD_ROLE",
+                          "SHOP_PRODUCT"
+                        ]
+                      }
+                    },
+                    "product": {
+                      "description": "An Upgrade.Chat product",
+                      "type": "object",
+                      "properties": {
+                        "uuid": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "attempts": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "total": {
+      "type": "number",
+      "description": "Total number of records"
+    },
+    "has_more": {
+      "type": "boolean",
+      "description": "Boolean indicating if there are more records."
+    }
+  }
+}
