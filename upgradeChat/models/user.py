@@ -11,12 +11,12 @@ from pydantic import BaseModel, Field
 
 
 class User(BaseModel):
-    discord_id: Optional[UUID] = None
-    username: Optional[str] = None
+    discord_id: str
+    username: str
 
 
 class Model(BaseModel):
-    data: Optional[User] = Field(None, description='An array of user records')
+    data: User
 
     def __str__(self):
         return f"<User {self.data.username}>"

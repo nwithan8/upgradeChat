@@ -11,16 +11,14 @@ from pydantic import BaseModel, Field
 
 
 class User(BaseModel):
-    discord_id: Optional[UUID] = None
-    username: Optional[str] = None
+    discord_id: str
+    username: str
 
 
 class Model(BaseModel):
-    data: Optional[List[User]] = Field(None, description='An array of user records')
-    total: Optional[float] = Field(None, description='Total number of records')
-    has_more: Optional[bool] = Field(
-        None, description='Boolean indicating if there are more records.'
-    )
+    data: List[User]
+    total: int
+    has_more: bool
 
     def __str__(self):
         return f"<{len(self.data)} Users>"
