@@ -1,6 +1,6 @@
 from upgradeChat.api import API
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 __title__ = "upgradeChat"
 __github_repo__ = "upgradeChat"
