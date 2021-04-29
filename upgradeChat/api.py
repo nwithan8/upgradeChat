@@ -1,6 +1,7 @@
 from typing import Union
 
-from upgradeChat.request_handler import RequestHandler
+from objectrest import OAuth2RequestHandler
+
 from upgradeChat.models import *
 
 
@@ -9,14 +10,15 @@ from upgradeChat.models import *
 class API:
     def __init__(self, client_id: str, client_secret: str, raw: bool = False):
         self._make_objects = not raw
-        self._request_handler = RequestHandler(client_id=client_id,
-                                               client_secret=client_secret,
-                                               base_url="https://api.upgrade.chat/v1")
+        self._request_handler = OAuth2RequestHandler(client_id=client_id,
+                                                     client_secret=client_secret,
+                                                     authorization_url="https://api.upgrade.chat/oauth/token",
+                                                     base_url="https://api.upgrade.chat/v1")
 
     def _request(self, uri: str, params: dict = None, model: type = None) -> Union[object, dict]:
         if self._make_objects:
-            return self._request_handler.get_object(uri=uri, model=model, params=params)
-        return self._request_handler.get_json(uri=uri, params=params)
+            return self._request_handler.get_object(url=uri, model=model, params=params)
+        return self._request_handler.get_json(url=uri, params=params)
 
     # Orders
     def get_orders(self, order_type: str = None, discord_id: int = None, limit: int = 100, offset: int = 0) -> Union[
